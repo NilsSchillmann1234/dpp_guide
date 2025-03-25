@@ -1,51 +1,66 @@
-# UV Python Paketmanagement Leitfaden
+# UV-Python-Paketmanagement-Leitfaden
 
-Hey! Schön, dass du dich für UV interessierst. In diesem Leitfaden zeige ich dir, wie du UV für dein Data Science Projekt nutzen kannst. UV ist ein moderner und schneller Paketmanager für Python, der dir dabei hilft, deine Projektumgebung sauber und übersichtlich zu halten. 
+In diesem Leitfaden zeige ich dir, wie du UV für dein Data-Science-Projekt nutzen kannst. UV ist ein moderner und schneller Paketmanager für Python, der dir hilft, deine Projektumgebung sauber und übersichtlich zu halten.
 
 ## Was ist ein Virtual Environment?
 
-Bevor wir mit UV loslegen, lass uns kurz über Virtual Environments (venv) sprechen. Ein venv ist wie ein eigener, isolierter Raum für dein Projekt. Hier können wir Python-Pakete installieren, ohne dass sie sich mit anderen Projekten in die Quere kommen. UV erstellt und verwaltet diese venvs automatisch für uns - du musst sie nicht mal aktivieren! 
+Bei der Arbeit mit Python sind wir oft auf externe Pakete wie Pandas, Matplotlib, Scikit-Learn etc. angewiesen, die zusätzlich zu Python auf unserem System installiert werden müssen. Üblicherweise können diese Pakete mit dem in Python eingebauten Paketmanager `pip` installiert werden. Beispielsweise würde der Befehl `pip install pandas` das Paket Pandas auf unserem Rechner in einer globalen Umgebung installieren, sodass alle Python-Skripte direkt damit arbeiten können. Wenn wir jedoch an mehreren Projekten gleichzeitig arbeiten oder unser Projekt mit anderen teilen möchten, stoßen wir schnell auf ein Problem. Die global installierten Pakete von `pip` werden in einer bestimmten Version installiert. Projekte können jedoch aufgrund ihrer Historie auf unterschiedliche Versionen der Pakete angewiesen sein. Daher ist es nicht ratsam, diese immer global zu installieren. An dieser Stelle kommen virtuelle Umgebungen oder Virtual Environments ins Spiel, bei denen Pakete in einem speziellen Ordner für jedes Projekt individuell installiert werden.
 
-UV legt dabei einen `.venv` Ordner in deinem Projektverzeichnis an. Dieser Ordner enthält alle installierten Pakete und die Python-Umgebung. Da dieser Ordner sehr groß werden kann und für jedes System neu erstellt werden sollte, gehört er nicht ins Git Repository. Wir werden später noch sehen, wie wir ihn in der `.gitignore` Datei ausschließen.
+## Was ist UV?
+
+UV ist ein Paketmanager für Python, ein kleines Hilfsprogramm, das zusätzlich zu Python installiert wird und uns bei der Arbeit mit virtuellen Umgebungen unterstützt. Mit UV können wir unsere Python-Projekte aufsetzen und beliebige Pakete für diese Projekte installieren. UV sorgt dafür, dass alle Pakete kompatibel zueinander sind und dokumentiert die verwendeten Pakete in einer eigenen Datei namens `pyproject.toml`. Dies hat den Vorteil, dass unsere Projekte sauber voneinander getrennt sind. Zudem hilft es dabei, unsere Projekte mit anderen auf GitHub zu teilen, da wir nicht alle Pakete mit unserem Projekt ausliefern müssen. Da UV die installierten Pakete in der `pyproject.toml`-Datei dokumentiert, reicht es aus, diese Datei in unserem Projekt vorzuhalten. Wenn andere nun die gleichen Pakete installieren möchten, kann UV diese automatisch in der richtigen Konfiguration installieren.
+
+UV legt dabei einen `.venv`-Ordner in deinem Projektverzeichnis an. Dieser Ordner enthält alle installierten Pakete und die Python-Umgebung. Da dieser Ordner sehr groß werden kann und für jedes System neu erstellt werden sollte, gehört er nicht ins Git-Repository. Wir werden später noch sehen, wie wir ihn in der `.gitignore`-Datei ausschließen können.
+
+Es gibt neben UV noch weitere Paketmanager, die für diesen Zweck genutzt werden können. `pip` ist der bekannteste von ihnen, da er mit Python geliefert wird und nicht zusätzlich installiert werden muss. Anaconda ist ebenfalls ein beliebter Paketmanager und vor allem im Bereich Data Science sehr verbreitet. Wir haben uns hier für UV entschieden, weil es deutlich moderner und schneller ist als die genannten Alternativen.
+
 
 ## Installation von UV
 
-Je nachdem, welches Betriebssystem du verwendest, gibt es verschiedene Wege UV zu installieren:
+Zunächst müssen wir verstehen, dass UV ein rein Terminal basiertes Programm ist. Es bietet also keine grafische Benutzeroberfläche sondern wird über ein sogenanntes Terminal bedient. Das bedeutet, dass wir alle Aktionen in Form von Text-Befehlen ausführen müssen. Dazu kannst du unter Windows die `PowerShell` und unter MacOS/Linux das Terminal verwenden. Solltest du noch keine Erfahrung mit dem Terminal haben kannst du dir in unserem [Leitfaden zum Terminal](terminal_guide.md) die Grundlagen anschauen.
 
-**macOS**:
+Je nachdem, welches Betriebssystem du verwendest, gibt es verschiedene Wege UV zu installieren. Für eine genauere beschreibung schaue in die [Dokumentation](https://docs.astral.sh/uv/getting-started/installation/) von UV.
+
+Führe folgende Befehle, je nach Betreibssystem, in deinem Terminal aus.
+
+### Windows
+Windows hat einen eigenen Packetmanager für Programme namens Winget. Öffne eine PowerShell Konsole und gib folgenden Befehl ein:
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+winget install --id=astral-sh.uv  -e
 ```
 
-**Linux**:
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-**Windows**:
+Sollte das nicht funktionieren ist Winget auf deinem System noch nicht verfügbar. Versuche alternativ folgenden Befehl:
 ```bash
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+### macOS / Linux
+Für macOS und Linux systeme können wir UV über curl herunterladen und direkt installieren:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+---
+
+
+Solltest du Probleme mit der Installation haben schaue in die [Dokumentation](https://docs.astral.sh/uv/getting-started/installation/) oder melde dich beim Mentoring Team von StackFuel.
 
 Nach der Installation kannst du prüfen, ob alles geklappt hat:
 ```bash
 uv --version
 ```
 
-## Projekt erstellen
+Wir können in diesem Leitfaden nur die Grundlagen von UV behandeln. Falls du dich dafür interessierst was mit UV noch alles möglich ist lege ich dir die [Offizielle Dokumentation](https://docs.astral.sh/uv/getting-started/) der Entwickler ans Herz.
 
-Lass uns ein neues Data Science Projekt erstellen! Erstelle zuerst einen neuen Ordner und wechsle hinein:
+
+
+## Projekt erstellen (uv init)
+
+Lass uns ein neues Data Science Projekt erstellen! Lege zunächst einen neuen Ordner an und wechsle hinein:
 
 ```bash
 mkdir mein-data-projekt
 cd mein-data-projekt
-```
-
-Da wir mit Git arbeiten werden, initialisieren wir zuerst ein Git Repository und erstellen eine `.gitignore` Datei:
-
-```bash
-git init
-echo ".venv/" > .gitignore
 ```
 
 Jetzt initialisieren wir das Projekt mit UV:
@@ -56,24 +71,32 @@ uv init
 
 **Wichtige Parameter für uv init:**
 - `--python`: Legt die Python-Version fest, z.B. `uv init --python=3.11`
-- `--name`: Setzt den Projektnamen, z.B. `uv init --name="Mein Data Projekt"`
+- `--name`: Setzt den Projektnamen, z.B. `uv init --name="mein-data-projekt"`
 
-UV hat jetzt drei wichtige Dateien erstellt:
+UV hat jetzt ein neues Projekt in unserem Ordner angelegt und einige Dateien und Ordner erstellt.
 
-1. **pyproject.toml**: Dies ist deine Projekt-Konfigurationsdatei. Sie sieht etwa so aus:
+
+**pyproject.toml**: Dies ist deine Projekt-Konfigurationsdatei. Sie sieht etwa so aus:
 ```toml
 [project]
 name = "mein-data-projekt"
 version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
 dependencies = []
 ```
+Dies ist ein Konfigurationsdatei in der wichtige Informationen über unser Projekt abgelegt werden. Programme wie UV nutzen diese Datei um Einstellungen für das Projekt zu verwalten. Wenn du dich dafür interessiert wie diese Datei Aufgebaut ist und funktioniert kannst du gerne einen Blick in den Offiziellen [Python Packaging Guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) werfen. Für den Anfang musst du aber nur wissen, das UV hier einige Metadaten für unser Projekt angelegt hat und unter dem Punkt `dependencies` die Namen der benötigten Packete für unser Projekt hinterlegt.
 
-2. **.python-version**: Enthält die Python-Version für dein Projekt:
+**.python-version**: Enthält die Python-Version für dein Projekt. Z.B.:
 ```
-3.11
+3.12
 ```
 
-3. **uv.lock**: Diese Datei speichert die exakten Versionen aller installierten Pakete. Sie sollte mit ins Git-Repository!
+**uv.lock**: Diese Datei speichert die exakten Versionen aller installierten Pakete. UV wird versuchen diese stehts mit der `pyproject.toml` und den tatsächlich installierten Packeten im `.venv` Ordner synchron zu halten.
+
+Darüber hinaus hat UV wahrscheinlich die Dateien `README.md`, `hello.py`, `.gitignore` sowie ein git repository im Ordner `.git` angelegt. Falls du die letzten beiden nicht finden kannst musst du vermutlich in deinem Datei Explorer versteckte Elemente einblenden. Die `README.md` dient dazu dein Projekt zu beschreiben und zu Dokumentieren. Diese Datei wird unter GitHub standardmäßig auf der Startseite deines Projekts angezeigt. Die `hello.py` datei kannst du zum testen deines Setups verwenden. Falls du mit dem `.git` Ordner oder der `.gitignore` Datei nichts anfangen kannst schau dir unseren [Git Leitfaden](git_guide.md) an.
+
 
 Diese drei Dateien sollten ins Git Repository aufgenommen werden:
 ```bash
@@ -81,7 +104,12 @@ git add pyproject.toml .python-version uv.lock
 git commit -m "Initial project setup"
 ```
 
-## Pakete installieren
+## Pakete installieren (uv add)
+
+<!---
+TODO: Weiter Überarbeiten
+-->
+
 
 Für ein Data Science Projekt brauchst du typischerweise einige Bibliotheken. Lass uns die wichtigsten installieren:
 
