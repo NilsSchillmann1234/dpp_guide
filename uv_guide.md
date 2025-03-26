@@ -26,7 +26,7 @@ Führe folgende Befehle, je nach Betreibssystem, in deinem Terminal aus.
 ### Windows
 Windows hat einen eigenen Packetmanager für Programme namens Winget. Öffne eine PowerShell Konsole und gib folgenden Befehl ein:
 ```bash
-winget install --id=astral-sh.uv  -e
+winget install --id=astral-sh.uv -e
 ```
 
 Sollte das nicht funktionieren ist Winget auf deinem System noch nicht verfügbar. Versuche alternativ folgenden Befehl:
@@ -50,11 +50,14 @@ Nach der Installation kannst du prüfen, ob alles geklappt hat:
 uv --version
 ```
 
-Wir können in diesem Leitfaden nur die Grundlagen von UV behandeln. Falls du dich dafür interessierst was mit UV noch alles möglich ist lege ich dir die [Offizielle Dokumentation](https://docs.astral.sh/uv/getting-started/) der Entwickler ans Herz.
+Wir können in diesem Leitfaden nur die Grundlagen von UV behandeln. Falls du dich dafür interessierst was mit UV noch alles möglich ist lege ich dir die offizielle [Dokumentation](https://docs.astral.sh/uv/getting-started/) der Entwickler ans Herz.
 
 
+<!---
+TODO: uv --help
+-->
 
-## Projekt erstellen (uv init)
+## Projekt erstellen `uv init`
 
 Lass uns ein neues Data Science Projekt erstellen! Lege zunächst einen neuen Ordner an und wechsle hinein:
 
@@ -70,7 +73,7 @@ uv init
 ```
 
 **Wichtige Parameter für uv init:**
-- `--python`: Legt die Python-Version fest, z.B. `uv init --python=3.11`
+- `--python`: Legt die Python-Version fest, z.B. `uv init --python=3.12`
 - `--name`: Setzt den Projektnamen, z.B. `uv init --name="mein-data-projekt"`
 
 UV hat jetzt ein neues Projekt in unserem Ordner angelegt und einige Dateien und Ordner erstellt.
@@ -86,7 +89,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
 ```
-Dies ist ein Konfigurationsdatei in der wichtige Informationen über unser Projekt abgelegt werden. Programme wie UV nutzen diese Datei um Einstellungen für das Projekt zu verwalten. Wenn du dich dafür interessiert wie diese Datei Aufgebaut ist und funktioniert kannst du gerne einen Blick in den Offiziellen [Python Packaging Guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) werfen. Für den Anfang musst du aber nur wissen, das UV hier einige Metadaten für unser Projekt angelegt hat und unter dem Punkt `dependencies` die Namen der benötigten Packete für unser Projekt hinterlegt.
+In dieser Datei werden wichtige Information zu unserem Projekt abgelegt. Programme wie UV nutzen diese Datei um Einstellungen für das Projekt zu verwalten. Wenn du dich dafür interessierst wie diese Datei Aufgebaut ist und funktioniert kannst du gerne einen Blick in den Offiziellen [Python Packaging Guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) werfen. Für den Anfang musst du aber nur wissen, das UV hier einige Metadaten für unser Projekt angelegt hat und unter dem Punkt `dependencies` die Namen der benötigten Packete für unser Projekt hinterlegt.
 
 **.python-version**: Enthält die Python-Version für dein Projekt. Z.B.:
 ```
@@ -104,17 +107,16 @@ git add pyproject.toml .python-version uv.lock
 git commit -m "Initial project setup"
 ```
 
-## Pakete installieren (uv add)
+## Pakete installieren `uv add`
 
-<!---
-TODO: Weiter Überarbeiten
--->
+Für ein Data Science Projekt brauchst du typischerweise einige Bibliotheken. Um mit Jupyter Notebooks zu arbeiten kannst du das Paket `jupyter` installieren. Dieses bietet dir den Jupyter Kernel, der für die Ausführung der Zellen im Notebook zuständig ist, und den Jupyter Server, der eine einfache Webbasierte Benutzeroberfläche für einen Internetbrowser bietet. Du kennst den Jupyter Server wahrscheinlich schon in Form des DataLab von StackFuel. Wenn du deine Notebooks mit VSCode bearbeiten möchtest reicht es aus, wenn du nur das Packet `ipykernel` installierst, da VSCode selbst die Benutzeroberfläche darstellt.
 
+Darüber hinaus können wir einige Bibliotheken gebrauchen die du bereits aus unseren Trainings kennst. Zu nennen wären hier `pandas`, `matplotlib`, `seaborn`, `scikit-learn` etc..
 
-Für ein Data Science Projekt brauchst du typischerweise einige Bibliotheken. Lass uns die wichtigsten installieren:
+Um ein Packet mit uv zu installieren kannst du den Befehl `uv add` gefolgt von einem oder mehrer Packetnamen verwenden.
 
 ```bash
-uv add pandas numpy matplotlib scikit-learn
+uv add ipykernel pandas matplotlib
 ```
 
 Nach diesem Befehl hat sich deine pyproject.toml verändert:
@@ -122,171 +124,72 @@ Nach diesem Befehl hat sich deine pyproject.toml verändert:
 [project]
 name = "mein-data-projekt"
 version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
 dependencies = [
-    "pandas>=2.2.0",
-    "numpy>=1.26.0",
-    "matplotlib>=3.8.0",
-    "scikit-learn>=1.4.0",
+    "ipykernel>=6.29.5",
+    "matplotlib>=3.10.1",
+    "pandas>=2.2.3",
 ]
+
 ```
 
-Die uv.lock Datei enthält jetzt die exakten Versionen und alle Abhängigkeiten dieser Pakete.
+**Hinweis:** Die oben stehenden Versionsnummern können in deinem Fall vom Beispiel abweichen. Das liegt daran, dass uv stehts versucht die aktuellsten Versionen der Packete zu installieren und diese regelmäßig aktualisiert und weiter entwickelt werden.
 
-## Pakete entfernen
+In der `pyproject.toml` finden wir die Packete welche wir explizit durch `uv add` als Abhängigkeit (dependency) für unser Projekt definiert haben. Damit ist klar, dass unser Projekt auf diesen Bibliotheken aufbaut und jeder, der unser Projekt selbst ausführen möchte, diese Packete installiert haben muss. Allerdings haben diese Packete selbst ebenfalls abhängigkeiten von anderen Packeten die wir nicht explizit angegeben haben. So sind die Packete `pandas` und `matplotlib` beispielsweise von `numpy` abhängig. UV installiert diese zusätzlichen abhängigkeiten automatisch für uns mit und dokumentiert alle installierten Packete in der `uv.lock` Datei. UV hat also `numpy` ebenfalls installiert und wir können dieses Packet in unseren Notebooks verwenden. Allerdings sollten wir, falls wir `numpy` explizit in unserem Quellcode verwenden, dieses auch in unserer `pyproject.toml` Datei auflisten bzw. mit `uv add` hinzufügen und uns nicht darauf verlassen, dass es durch `pandas` oder `matplotlib` installiert wird.
 
-Möchtest du ein Paket wieder entfernen:
+UV hat spätestens jetzt einen Ordner `.venv` in unserem Projekt angelegt und dort die entsprechenden Packete installiert. Falls du diesen Ordner nicht siehst musst du in den Einstellungen deines Dateiexplorers "versteckte" oder "ausgeblendete" Elemente anzeigen lassen. Das ist nun unser Virtuelles Environment das speziell für unser Projekt angelegt wurde.
+
+Du kannst nun in VSCode dein erstes Notebook z.B. `test.ipynb` anlegen. Nachdem du diese Datei geöffnet hast solltest du als erstes den Kernel oben rechts in der Ecke definieren. Hier wähle einfach das `.venv` aus, welches uv gerade für uns angelget hat. Mehr dazu in unserem [VSCode guide](vscode_guide.md).
+
+
+## Pakete entfernen `uv remove`
+
+Wenn du versehentlich ein Packet installiert hast welches du nicht benötigst, kannst du dieses mit dem Befehl `uv remove` wieder deinstallieren. UV wird es dann aus der `pyproject.toml` Datei entfernen und das Packet inklusiver aller Abhängigkeiten, die nicht von anderen Packeten verwendet werden, löschen.
+
 ```bash
 uv remove matplotlib
 ```
 
-## UV sync vs. UV add
+## Virtuelle Umgebung synchronisieren `uv sync`
+
+Wir haben gesehen, dass UV die Bibliotheken, die wir über `uv add` installieren, in der `pyproject.toml` sowie der `uv.lock` Datei einträgt. Aber was wenn wir uns das projekt frisch von GitHub geklont haben und nun das Environment komplett neu aufsetzten wollen? In diesem Fall sind die Bibliotheken bereits in der `project.toml` und `uv.lock` eingetragen allerdings noch nicht installiert. Für diesen Fall gibt es den Befehl `uv sync`. Mit diesem Befehl versucht UV die entsprechenden Dateien und das Environmen zu synchronisieren. Das bedeutet alles was in der `pyproject.toml` Datei steht, aber noch nicht im environment existiert, wird nachinstalliert.
+
+Dieser Befehl ist immer dann wichtig, wenn das Environment von jemand anderem geändert wurde. Stell dir vor ein Kollege arbeitet gerade an einem neuen Feature und braucht dafür eine Bibliothek, welche noch nicht Teil des Environment ist. Er installiert dieses Packet bei sich durch `uv add` und UV aktualisiert seine Version der `pyproject.toml` Datei. Wenn er fertig ist pusht er seinen neuen Code zusammen mit der aktualisierten `pyproject.toml` auf GitHub. Wenn du dir nun das Projekt pullst wirst du ein Packet in deiner `pyproject.toml` haben, welches nicht Teil deines Environment ist, da das Environment selbst nicht Teil des GitRepositorys ist. In dieser Situation kannst du einfach `uv sync` im Terminal eingeben und UV kümmert sich darum das alles korrekt installiert wird.
 
 **UV add:**
 - Fügt neue Pakete hinzu und aktualisiert pyproject.toml
 - Installiert die Pakete direkt
-- Gut für die schnelle Entwicklung
 
 **UV sync:**
 - Synchronisiert das venv mit pyproject.toml
-- Nützlich wenn du das Projekt frisch geklont hast
-- Verwendung: `uv sync`
+- Nützlich wenn du das Projekt frisch geklont oder gepullt hast
 
 Tipp: Führe `uv sync` aus, wenn deine Teammitglieder neue Pakete hinzugefügt haben und du die Änderungen übernehmen möchtest.
 
-## Code ausführen mit UV run
+## Code ausführen `uv run`
 
-Anstatt das venv zu aktivieren, kannst du deine Python-Skripte direkt mit UV ausführen. Erstellen wir ein einfaches Beispiel:
-
-```python
-# analyse.py
-import pandas as pd
-import numpy as np
-
-data = pd.DataFrame({
-    'x': np.random.randn(100),
-    'y': np.random.randn(100)
-})
-print("Erste 5 Zeilen unserer Daten:")
-print(data.head())
-print("\nStatistische Zusammenfassung:")
-print(data.describe())
+Wir haben nun ein Environment und können dort Packete installieren und unseren Programmcode schreiben. Doch was wenn wir diesen Code nun ausführen wollen? Üblicherweise rufen wir im Terminal das Programm `python` bzw. `python3` unter Linux auf und übergeben dem Programm unser Script zur ausführung.
+``` bash
+python hello.py
 ```
 
-Ausführen:
+Allerdings kriegen wir hier ein Problem. Unser Virtuelles Environment ist unserem Betriebssystem nicht bekannt. Es wird versuchen eine global installierte Python version auf dem System zu finden und diese auszuführen. Diese Version wird aber ebenfalls nicht mit den Bibliotheken aus unserem Environment vertraut sein.
+
+Die konventionelle Lösung für das Problem ist es, das Virtuelle Environment zunächst zu "aktivieren". Im `.venv/Scripts` Ordner liegen mehrere Scripte, welche für unterschiedliche Terminal vorgesehen sind. Bei der ausführung des Richtigen Scripts wird nun dem Betriebssystem die Richtige Python Version samt aller installierten Bibliotheken bekannt gemacht, so dass, solange das environment aktiv ist, die richtige Python version mit `python hello.py` aufgerufen wird.
+
+UV macht die ganze sache ein wenig einfacher. Da UV selbst ein Programm ist, dass unser environment kennt solange wir es im richtigen Pfad aufrufen, können wir den befehl `uv run` für die ausführung von Python Code verwenden.
 ```bash
-uv run python analyse.py
+uv run hello.py
 ```
 
-## UV tool verwenden
+UV kümmert sich dann darum, dass die Richtige Python Version unsere Environment für die ausführung verwendet wird.
 
-UV kann auch Python-Tools direkt ausführen. Ein besonders nützliches Tool für Data Science Projekte ist Ruff. Ruff ist ein ultraschneller Python Linter und Formatter in einem. Es hilft dir dabei:
-- Code-Stil konsistent zu halten
-- Potenzielle Fehler zu finden
-- Performance-Probleme aufzudecken
-- Unnötigen Code zu identifizieren
 
-Lass uns Ruff installieren und verwenden:
+---
 
-```bash
-uv add ruff
-```
 
-Jetzt können wir unseren Code mit Ruff überprüfen:
-```bash
-uv tool ruff check analyse.py
-```
+Du hast nun die wichtigesten Befehle und Funktionen von UV kennen gelernt um dein Projekt aufzusetzten und `.py` Dateien sowie jupyter Notebooks auszuführen. UV bietet noch einige weitere Möglichkeiten die du dir gerne bei bedarf anschauen kannst. Dafür empfehlen wir die offizielle [Dokumentation](https://docs.astral.sh/uv/) der Entwickler.
 
-Und automatisch formatieren:
-```bash
-uv tool ruff format analyse.py
-```
-
-Ein großer Vorteil von Ruff ist, dass es viele verschiedene Lint-Tools ersetzt (wie flake8, isort, pycodestyle) und dabei viel schneller ist. Du kannst die Regeln in der pyproject.toml konfigurieren:
-
-```toml
-[tool.ruff]
-# Aktiviere zusätzliche Regeln
-select = [
-    "E",  # Pycodestyle Fehler
-    "F",  # Pyflakes
-    "I",  # isort
-    "N",  # PEP8 Naming
-]
-# Ignoriere bestimmte Regeln wenn nötig
-ignore = []
-```
-
-## UVX für schnellen Zugriff
-
-UVX ist wie eine Abkürzung - du kannst Python-Tools direkt ausführen, ohne sie erst zu installieren:
-
-```bash
-uvx ruff check analyse.py
-```
-
-## Praktische Tipps
-
-1. **Projektstruktur**: Lege von Anfang an eine gute Struktur fest:
-```
-mein-data-projekt/
-├── data/               # Rohdaten
-├── notebooks/          # Jupyter Notebooks
-├── src/               # Python Module
-├── .gitignore         # Git-Ignore Datei
-├── pyproject.toml     # Projekt-Konfiguration
-├── .python-version    # Python Version
-└── uv.lock           # Lock-Datei
-```
-
-2. **Requirements für unterschiedliche Umgebungen**: Du kannst in pyproject.toml verschiedene Abhängigkeitsgruppen definieren:
-```toml
-[project]
-name = "mein-data-projekt"
-version = "0.1.0"
-dependencies = [
-    "pandas>=2.2.0",
-    "numpy>=1.26.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "ruff>=0.2.0",
-    "pytest>=7.0.0",
-]
-```
-
-3. **Jupyter Integration**: Für Jupyter Notebooks:
-```bash
-uv add jupyter
-uv run jupyter notebook
-```
-
-Denk daran: UV kümmert sich um dein venv im Hintergrund - du musst es nie manuell aktivieren. Alle Befehle funktionieren direkt mit `uv run` oder `uv tool`.
-
-## Git Best Practices
-
-Hier noch einmal zusammengefasst, was in Git gehört und was nicht:
-
-**In Git aufnehmen (git add):**
-- pyproject.toml
-- .python-version
-- uv.lock
-- .gitignore
-- Deine Python-Skripte und Notebooks
-
-**Nicht in Git aufnehmen (in .gitignore):**
-- .venv/
-- __pycache__/
-- .ipynb_checkpoints/
-- Lokale Konfigurationsdateien
-- Große Datensätze
-
-## Nächste Schritte
-
-Jetzt bist du bereit, mit deinem Team am Data Science Projekt zu arbeiten! Denk daran:
-- Committe immer die pyproject.toml und uv.lock
-- Nutze `uv sync` nach dem Klonen oder Pull
-- Verwende Ruff regelmäßig, um deinen Code sauber zu halten
-- Teile neue Abhängigkeiten mit deinem Team
-
-Viel Erfolg bei deinem Projekt! 🚀
+Ich wünsche dir viel Spaß mit deinem Python Projekt.
