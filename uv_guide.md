@@ -155,7 +155,7 @@ In der `pyproject.toml` finden wir die Pakete, welche wir explizit durch `uv add
 
 UV hat spätestens jetzt einen Ordner `.venv` in unserem Projekt angelegt und dort die entsprechenden Pakete installiert. Falls du diesen Ordner nicht siehst, musst du in den Einstellungen deines Dateiexplorers "versteckte" oder "ausgeblendete" Elemente anzeigen lassen. Das ist nun unser virtuelles Environment, das speziell für unser Projekt angelegt wurde.
 
-Du kannst nun in VSCode dein erstes Notebook, z. B. `test.ipynb`, anlegen. Nachdem du diese Datei geöffnet hast, solltest du als Erstes den Kernel oben rechts in der Ecke definieren. Hier wähle einfach das `.venv` aus, welches UV gerade für uns angelegt hat. Mehr dazu in unserem [VSCode Guide](vscode_guide.md).
+Du kannst nun in VSCode dein erstes Notebook, z. B. `test.ipynb`, anlegen. Nachdem du diese Datei geöffnet hast, solltest du als Erstes den Kernel oben rechts in der Ecke definieren. Hier wähle einfach das `.venv` aus, welches UV gerade für uns angelegt hat. Mehr dazu in unserem [Projekt Guide](project_guide.md).
 
 ## Pakete entfernen `uv remove`
 
