@@ -1,20 +1,3 @@
-<!-- 
-Vervollständige den Leitfaden zum Thema Visual Studio Code.
-Der Leitfaden richtet sich an Teilnehmende des Projekt-Portfolio Kurses meines Unternehmens. Die Teilnehmer haben bereits Kurse zu Themen wie Data Science, Data Analytics und Python besucht. In den vergangenen Trainings haben die Teilnehmenden nur in einer von uns bereitgestellten Jupyter Server instanz an Jupyter Notebooks gearbeitet. In diesem Training soll es darum gehen, das die Teilnehmenden selbstständig ein eigenen Porjekt auf ihrem eigenen Rechner umsetzten. Da sie bislang nur auf unserer Website Programmiert haben möchte ich eine Reihe von Leitfäden für sie bereitstellen in denen sie an die Arbeit mit VSCode, UV (Python Package manager) und Git herangeführt werden.
-Folgende Leitfäden werden den Teilnehmern zur verfügung gestellt:
-- [Leitfaden für den Code Editor Visual Studio Code (coming soon)](./vscode_guide.md)
-- [Leitfaden für das Terminal (coming soon)](./terminal_guide.md)
-- [Leitfaden für den Python Paketmanager UV](./uv_guide.md)
-- [Leitfaden für Git (coming soon)](./git_guide.md)
-- [Beispieldatensätze](./data_sets.md)
-- [Referenzprojekt zur Inspiration](https://github.com/jzatstackfuel/DPP-Referenzprojekt)
-
-Hier ist der Erste (unvollständige) Entwurd zum Thema VSCode. Die Teilnehmer sollen mit der Software soweit vertraut gemacht werden, dass sie den folgenden Leitfäden folgen können.
-
-Vervollständige diesen Leitfaden. Halte dich an den Duktus der bereits etabliert wurde. Richte dich nach den Kommentaren zu den entsprechenden Kapiteln.
--->
-
-
 # Visual Studio Code - Leitfaden für Python-Entwicklung
 
 In diesem Leitfaden zeige ich dir, wie du mit dem Code-Editor **Visual Studio Code** (VSCode) effektiv arbeiten kannst. VSCode ist ein leistungsstarker und vielseitiger Editor, der besonders für die Python-Entwicklung geeignet ist. Wir werden uns ansehen, wie du VSCode installierst, die Oberfläche navigierst, den Editor an deine Bedürfnisse anpasst und mit Python-Projekten, insbesondere unter Verwendung von UV und Jupyter Notebooks, arbeitest.
@@ -38,19 +21,19 @@ In diesem Leitfaden zeige ich dir, wie du mit dem Code-Editor **Visual Studio Co
 
 **Download**:
 
-   Besuche die offizielle Website von VSCode: [https://code.visualstudio.com/](https://code.visualstudio.com/) und lade die passende Version für dein Betriebssystem herunter.
+Besuche die offizielle Website von VSCode: [https://code.visualstudio.com/](https://code.visualstudio.com/) und lade die passende Version für dein Betriebssystem herunter.
 
 **Installation auf Windows**:
 
-   - Führe die heruntergeladene `.exe`-Datei aus.
-   - Folge den Anweisungen des Installationsassistenten.
-   - Optional *Empfohlen*: Aktiviere die Option **"Code zu PATH hinzufügen"**, um VSCode über die Kommandozeile zu starten.
-   - Optional *Empfohlen*: Aktiviere die beiden Optionen **"In Code Öffnen"** für das Kontext Menü.
+- Führe die heruntergeladene `.exe`-Datei aus.
+- Folge den Anweisungen des Installationsassistenten.
+- Optional _Empfohlen_: Aktiviere die Option **"Code zu PATH hinzufügen"**, um VSCode über die Kommandozeile zu starten.
+- Optional _Empfohlen_: Aktiviere die beiden Optionen **"In Code Öffnen"** für das Kontext Menü.
 
 **Installation auf macOS**:
 
-   - Öffne das heruntergeladene `.zip`-Archiv.
-   - Ziehe die Anwendung **Visual Studio Code** in den Ordner **Programme**.
+- Öffne das heruntergeladene `.zip`-Archiv.
+- Ziehe die Anwendung **Visual Studio Code** in den Ordner **Programme**.
 
 Nachdem du VSCode installiert hast solltest du dich mit der Oberfläche vertraut machen. Microsoft stellt dafür ein Umfangreiche [Dokumentation](https://code.visualstudio.com/docs) zur verfügung, in der alle Wichtigen features erklärt werden.
 
@@ -67,16 +50,19 @@ Um Erweiterungen zu installieren, klicke auf das Extensions-Symbol in der Activi
 Hier sind die empfohlenen Erweiterungen für dein Python-Projekt:
 
 1. **Python Extension**:
+
    - Die offizielle Python-Erweiterung von Microsoft
    - Bietet IntelliSense, Linting, Debugging, Code Navigation, Code Formatierung und vieles mehr
    - Suche nach "Python" und installiere die Erweiterung von Microsoft
 
 2. **Jupyter Extension**:
+
    - Ermöglicht die Arbeit mit Jupyter Notebooks direkt in VSCode
    - Unterstützt das Ausführen von Code-Zellen, das Anzeigen von Plots und die Integration mit dem Python-Interpreter
    - Suche nach "Jupyter" und installiere die Erweiterung von Microsoft
 
 3. **Even Better TOML**:
+
    - Bietet Syntax-Highlighting und Unterstützung für TOML-Dateien
    - Besonders nützlich für die Arbeit mit `pyproject.toml`-Dateien, die für moderne Python-Projekte verwendet werden
    - Suche nach "Even Better TOML" und installiere die Erweiterung von tamasfe
@@ -86,41 +72,43 @@ Hier sind die empfohlenen Erweiterungen für dein Python-Projekt:
    - Hilft dir, deinen Code sauber und nach den Python-Standards zu formatieren
    - Suche nach "Ruff" und installiere die entsprechende Erweiterung
 
-Nach der Installation dieser Erweiterungen sollte VSCode automatisch deine Python-Umgebung erkennen und die entsprechenden Funktionen zur Verfügung stellen. Falls du weitere Erweiterungen benötigst, kannst du jederzeit den [Extension Marketplace](https://code.visualstudio.com/docs/configure/extensions/extension-marketplace) durchsuchen.
-
-
+Nach der Installation dieser Erweiterungen sollte VSCode automatisch deine Python-Umgebung erkennen (mehr dazu im [UV Leitfaden](./uv_guide.md)) und die entsprechenden Funktionen zur Verfügung stellen. Falls du weitere Erweiterungen benötigst, kannst du jederzeit den [Extension Marketplace](https://code.visualstudio.com/docs/configure/extensions/extension-marketplace) durchsuchen.
 
 ### Terminal
 
-Ein wichtiger Bestandteil der Arbeit mit VSCode ist das integrierte Terminal, das dir ermöglicht, Befehle direkt aus dem Editor heraus auszuführen, ohne zwischen verschiedenen Anwendungen wechseln zu müssen.
+Ein wichtiger Bestandteil der Arbeit mit VSCode ist das integrierte Terminal, das dir ermöglicht, Befehle direkt aus dem Editor heraus auszuführen, ohne zwischen verschiedenen Anwendungen wechseln zu müssen. Das Terminal wird im [Leitfaden zu UV](./uv_guide.md) wichtig, wenn es darum geht mit dem Packetmanager UV zu arbeiten und Python sowie einige Packete zu installieren. Aber auch für die Arbeit mit Git und anderen Entwicklungswerkzeugen ist das Terminal wichtig. Im [Leitfaden zum Terminal](./terminal_guide.md) werden wir uns genauer mit diesem Werkzeug beschäftigen und dir zeigen, wie du es effektiv nutzen kannst.
+
+Hier sind einige grundlegende Funktionen und Tipps zur Verwendung des Terminals in VSCode:
 
 **Öffnen des Terminals**:
 
-- Drücke `` Ctrl+` `` (Windows/Linux) oder `` Cmd+` `` (macOS).
+- Drücke `Ctrl+ö` (Windows/Linux) oder `Cmd+ö` (macOS).
 - Alternativ kannst du über das Menü "Terminal" > "New Terminal" ein neues Terminal öffnen.
 
 **Grundlegende Terminal-Funktionen in VSCode**:
 
 1. **Mehrere Terminals verwalten**:
+
    - Du kannst mehrere Terminal-Instances haben, zwischen denen du über das Dropdown-Menü in der Terminal-Leiste wechseln kannst.
    - Teile das Terminal-Fenster horizontal oder vertikal mit dem "Split"-Button.
 
 2. **Terminal-Typ auswählen**:
+
    - In Windows kannst du zwischen PowerShell, Command Prompt und WSL wählen.
    - In macOS/Linux stehen verschiedene Shells wie Bash, Zsh oder Fish zur Verfügung.
 
 3. **Befehle ausführen**:
+
    - Führe Python-Skripte aus: `python mein_skript.py`
    - Verwende UV für Paketmanagement (siehe [UV Leitfaden](uv_guide.md))
    - Arbeite mit Git (siehe [Git Leitfaden](git_guide.md))
 
 4. **Terminal-Ausgabe durchsuchen**:
+
    - Nutze `Ctrl+F` (Windows/Linux) oder `Cmd+F` (macOS), um in der Terminal-Ausgabe zu suchen.
 
 5. **Terminaleinstellungen anpassen**:
    - Passe Schriftart, Größe und andere Einstellungen über die VSCode-Einstellungen an.
-
-Das Terminal ist ein mächtiges Werkzeug für die Python-Entwicklung und wird besonders nützlich sein, wenn du mit UV Pakete installierst, Git für die Versionskontrolle verwendest oder deine Python-Skripte ausführst.
 
 Für eine ausführlichere Einführung in die Arbeit mit dem Terminal, lies bitte den [Terminal Leitfaden](./terminal_guide.md), der detaillierte Informationen und Beispiele enthält.
 
@@ -128,37 +116,55 @@ Für eine ausführlichere Einführung in die Arbeit mit dem Terminal, lies bitte
 
 Hier sind einige zusätzliche Tipps, die dir helfen können, produktiver mit VSCode zu arbeiten:
 
-### Nützliche Tastenkombinationen
+### Tableiste
 
-- `Ctrl+P` (Windows/Linux) oder `Cmd+P` (macOS): Schnelles Öffnen von Dateien
-- `Ctrl+Shift+P` (Windows/Linux) oder `Cmd+Shift+P` (macOS): Befehlspalette öffnen
-- `Ctrl+Space`: IntelliSense manuell auslösen
-- `Alt+Up/Down` (Windows/Linux) oder `Option+Up/Down` (macOS): Zeilen nach oben/unten verschieben
-- `Ctrl+/` (Windows/Linux) oder `Cmd+/` (macOS): Zeile/Auswahl kommentieren/auskommentieren
+Wenn du im Explorer (Symbol mit den zwei Ordnern) eine Datei öffnest, geschieht dies in einem neuen Tab. Du kannst zwischen Tabs wechseln, indem du sie anklickst oder `Ctrl+Tab` (Windows/Linux) bzw. `Cmd+Tab` (macOS) nutzt. Dateien werden zunächst im temporären Modus geöffnet, was durch den kursiven Dateinamen erkennbar ist. Ein weiterer Datei-Klick ersetzt die aktuelle Datei im Tab. Um eine Datei dauerhaft zu öffnen, klicke den Tab doppelt an.
 
-### Workspace-Dateien
+Wenn eine Datei ungespeicherte Änderungen hat, wird ein kleiner Schwarzer Kreis neben dem Dateinamen angezeigt. Du kannst die Datei speichern, indem du `Ctrl+S` (Windows/Linux) oder `Cmd+S` (macOS) drückst.
 
-VSCode verwendet Workspace-Dateien (`.code-workspace`), um Projekteinstellungen zu speichern. Diese sind besonders nützlich, wenn du mit mehreren Ordnern in einem Projekt arbeitest. Du kannst eine Workspace-Datei erstellen, indem du "File" > "Save Workspace As..." auswählst.
+### Tastenkombinationen
 
-### Snippets
+**Datei- und Fenster-Management**
 
-Snippets sind Code-Vorlagen, die dir helfen, häufig verwendeten Code schnell einzufügen. Du kannst vordefinierte Snippets verwenden oder eigene erstellen:
+| Aktion                            | Windows/Linux  | MacOS         |
+| --------------------------------- | -------------- | ------------- |
+| **Schnelles Öffnen von Dateien**  | `Ctrl+P`       | `Cmd+P`       |
+| Zwischen geöffneten Tabs wechseln | `Ctrl+Tab`     | `Cmd+Tab`     |
+| Datei schließen                   | `Ctrl+W`       | `Cmd+W`       |
+| Datei speichern                   | `Ctrl+S`       | `Cmd+S`       |
+| Seitenleiste ein-/ausblenden      | `Ctrl+B`       | `Cmd+B`       |
+| Explorer öffnen                   | `Ctrl+Shift+E` | `Cmd+Shift+E` |
+| Erweiterungen öffnen              | `Ctrl+Shift+X` | `Cmd+Shift+X` |
+| Git-Ansicht öffnen                | `Ctrl+Shift+G` | `Cmd+Shift+G` |
+| Volbildmodus ein-/ausschalten     | `F11`          | `Cmd+Ctrl+F`  |
 
-1. Öffne die Befehlspalette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
-2. Tippe "Snippets" und wähle "Preferences: Configure User Snippets".
-3. Wähle "python.json", um Python-spezifische Snippets zu erstellen.
+**Bearbeiten**
 
-Hier ist ein Beispiel für ein einfaches Snippet:
+| Aktion                                         | Windows/Linux | MacOS            |
+| ---------------------------------------------- | ------------- | ---------------- |
+| **Zeilen nach oben/unten verschieben**         | `Alt+Up/Down` | `Option+Up/Down` |
+| **Zeile/Auswahl kommentieren/auskommentieren** | `Ctrl+/#`     | `Cmd+/#`         |
+| Rückgängig machen                              | `Ctrl+Z`      | `Cmd+Z`          |
+| Wiederholen                                    | `Ctrl+Y`      | `Cmd+Shift+Z`    |
+| Ausschneiden, Kopieren, Einfügen               | `Ctrl+X/C/V`  | `Cmd+X/C/V`      |
 
-```json
-"Print variable": {
-  "prefix": "pv",
-  "body": [
-    "print(f\"{$1} = {${1}}\")"
-  ],
-  "description": "Print a variable with its name"
-}
-```
+**Suchen und Navigieren**
+
+| Aktion                           | Windows/Linux  | MacOS         |
+| -------------------------------- | -------------- | ------------- |
+| Globale Suche                    | `Ctrl+Shift+F` | `Cmd+Shift+F` |
+| Dateiweit suchen                 | `Ctrl+F`       | `Cmd+F`       |
+| Zum nächsten Suchergebnis        | `F3`           | `Cmd+G`       |
+| Zur vorherigen Position springen | `Ctrl+-`       | `Cmd+-`       |
+| Zur nächsten Position springen   | `Ctrl+Shift+-` | `Cmd+Shift+-` |
+
+**Allgemein**
+
+| Aktion                       | Windows/Linux   | MacOS           |
+| ---------------------------- | --------------- | --------------- |
+| **Befehlspalette öffnen**    | `Ctrl+Shift+P`  | `Cmd+Shift+P`   |
+| Tastenkombinationen anzeigen | `Ctrl+K Ctrl+S` | `Ctrl+K Ctrl+S` |
+| **Einstellungen öffnen**     | `Ctrl+,`        | `Cmd+,`         |
 
 ## Zusammenfassung
 
@@ -167,6 +173,7 @@ Visual Studio Code ist ein vielseitiger und leistungsstarker Editor, der dir all
 In diesem Leitfaden haben wir die grundlegende Installation und Einrichtung von VSCode für die Python-Entwicklung behandelt, sowie die Arbeit mit Python-Skripten und Jupyter Notebooks. Nutze diese Grundlagen, um dein eigenes Projekt zu erstellen und damit zu experimentieren.
 
 Für weitere Informationen zu spezifischen Themen, schau dir die anderen Leitfäden an:
+
 - [Leitfaden für das Terminal](./terminal_guide.md)
 - [Leitfaden für den Python Paketmanager UV](./uv_guide.md)
 - [Leitfaden für Git](./git_guide.md)
