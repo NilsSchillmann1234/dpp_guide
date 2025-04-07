@@ -1,7 +1,3 @@
-<!-- Hier ist ein Leitfaden zum Package Manager UV, den ich für die Teilnehmer eines Projekt-Portfolio Kurses in meinem Unternehmen erstellt habe. Der Leitfaden baut stark auf den einsatz des Integrierten Terminals von Visual Studio Code auf. Da viele unsere Teilnehmer nicht mit dem Terminal vertraut sind, möchte ich, dass du einen weiteren Leitfaden zum Umgang mit dem Terminal (Für Windows und MacOS nutzer) erstellst. Der Leitfaden sollte die grundlegenden Befehle und Konzepte abdecken, die für die Arbeit mit dem Terminal in VSCode erforderlich sind. Vor allem sollte der Leitfaden gut auf die Arbeit mit dem UV-Paketmanager abgestimmt sein, wobei die Arbeit mit UV in dem bereitgestellten Leitfaden bereits behandelt wird. Der Leitfaden sollte auch einige Beispiele enthalten, die den Teilnehmern helfen, die Konzepte zu verstehen und anzuwenden. Der Leitfaden sollte in Markdown-Format verfasst sein und gut strukturiert sein, um eine einfache Navigation zu ermöglichen. Verwende Überschriften, Absätze und Listen, um den Text klar und übersichtlich zu gestalten. Achte darauf, dass der Leitfaden für Anfänger geeignet ist und keine Vorkenntnisse im Umgang mit dem Terminal voraussetzt. Verwende den gleichen Duktus wie in dem bereitgestellten Leitfaden, um eine konsistente Sprache und Terminologie zu gewährleisten.  -->
-
-
-
 # Terminal-Leitfaden für Visual Studio Code
 
 In diesem Leitfaden lernst du die grundlegenden Konzepte und Befehle für die Arbeit mit dem Terminal in Visual Studio Code (VS Code) kennen. Das Terminal ist ein leistungsstarkes Werkzeug, mit dem du Programme wie den UV-Paketmanager steuern kannst, ohne die grafische Benutzeroberfläche zu verwenden.
@@ -17,7 +13,7 @@ In VS Code ist das Terminal bereits integriert, sodass du es direkt in deiner Pr
 Es gibt mehrere Möglichkeiten, das Terminal in VS Code zu öffnen:
 
 - **Über das Menü**: Wähle `Terminal` > `Neues Terminal` in der Menüleiste.
-- **Über die Tastenkombination**: 
+- **Über die Tastenkombination**:
   - Windows/Linux: `Strg + Umschalt + ö` oder `Strg + #`
   - macOS: `Cmd + Umschalt + ö`
 - **Über die Kommandopalette**: Drücke `Strg + Umschalt + P` (Windows/Linux) oder `Cmd + Umschalt + P` (macOS), gib "Terminal: Neues Terminal erstellen" ein und drücke Enter.
@@ -69,7 +65,7 @@ ls
 
 Um mehr Details zu den Dateien anzuzeigen:
 
-- **Windows (PowerShell)**: `ls -l` oder `Get-ChildItem | Format-Table -AutoSize`
+- **Windows (PowerShell)**: `Get-ChildItem | Format-Table -AutoSize`
 - **Windows (CMD)**: `dir`
 - **macOS/Linux**: `ls -l` (Liste mit Details)
 
@@ -109,8 +105,12 @@ Um einen neuen Ordner zu erstellen:
 - **Alle Betriebssysteme**: `mkdir ordnername` (Make Directory)
 
 ```bash
-mkdir neues-projekt
+mkdir data
 ```
+
+> _Hinweis_: Du solltest deinen Projektordner immer direkt in VSCode öffnen und nicht als Ordner über das Terminal anlegen. Du kannst aber gerne Unterordner anlegen um Beispielsweise Code und Daten zu trennen.
+
+````bash
 
 ### Dateien und Ordner verwalten
 
@@ -128,7 +128,9 @@ touch test.py
 
 # Windows PowerShell
 New-Item -ItemType File -Name test.py
-```
+````
+
+> _Hinweis_: Du kannst neue Ordner und Dateien auch direkt in VS Code erstellen, indem du mit der rechten Maustaste auf den gewünschten Ordner klickst und "Neuer Ordner" oder "Neue Datei" auswählst.
 
 #### Datei löschen
 
@@ -193,6 +195,7 @@ Get-Help Get-ChildItem
 ### Absolute und relative Pfade
 
 - **Absolute Pfade** beginnen mit dem Wurzelverzeichnis:
+
   - Windows: `C:\Users\deinname\projekte`
   - macOS/Linux: `/Users/deinname/projekte`
 
@@ -212,49 +215,6 @@ Get-Help Get-ChildItem
 cd ~/projekte        # Wechselt zu /Users/deinname/projekte
 cd ./unterordner     # Wechselt in den Unterordner des aktuellen Verzeichnisses
 cd ../nachbarordner  # Wechselt zum Nachbarordner auf gleicher Ebene
-```
-
-## UV-Paketmanager im Terminal verwenden
-
-Jetzt, da du die Grundlagen des Terminals kennst, können wir uns ansehen, wie du den UV-Paketmanager in VS Code verwendest. Hier sind die wichtigsten Befehle, die auch im UV-Leitfaden erklärt werden:
-
-### Projekt initialisieren
-
-```bash
-# Verzeichnis erstellen und hineinwechseln
-mkdir mein-data-projekt
-cd mein-data-projekt
-
-# Projekt mit UV initialisieren
-uv init
-```
-
-### Pakete installieren
-
-```bash
-# Pakete installieren
-uv add ipykernel pandas matplotlib
-```
-
-### Pakete entfernen
-
-```bash
-# Paket entfernen
-uv remove matplotlib
-```
-
-### Environment synchronisieren
-
-```bash
-# Environment mit pyproject.toml synchronisieren
-uv sync
-```
-
-### Code ausführen
-
-```bash
-# Python-Skript mit UV ausführen
-uv run hello.py
 ```
 
 ## Praktische Tipps für die Terminal-Nutzung
@@ -304,7 +264,7 @@ Wenn ein Befehl zu lange dauert oder du einen Fehler gemacht hast:
 
 Wenn das Terminal zu unübersichtlich wird:
 
-- **Windows (PowerShell/CMD)**: `cls` oder `Clear-Host`
+- **Windows (PowerShell/CMD)**: `cls` oder `Clear-Host` oder `Strg + L`
 - **macOS/Linux**: `clear` oder `Strg + L`
 
 ## Fehlerbehebung im Terminal
@@ -318,9 +278,9 @@ uv: command not found
 ```
 
 Mögliche Lösungen:
+
 - Überprüfe, ob UV korrekt installiert ist
 - Bei Windows: Starte VS Code neu, um die PATH-Umgebungsvariable zu aktualisieren
-- Verwende den vollständigen Pfad zum UV-Programm
 
 #### "Zugriff verweigert"
 
@@ -329,6 +289,7 @@ Permission denied
 ```
 
 Mögliche Lösungen:
+
 - Bei macOS/Linux: Verwende `sudo` vor dem Befehl (nur wenn du weißt, was du tust!)
 - Überprüfe die Berechtigungen der Datei oder des Ordners
 - Bei Windows: Starte VS Code als Administrator
@@ -340,6 +301,7 @@ No such file or directory
 ```
 
 Mögliche Lösungen:
+
 - Überprüfe, ob du im richtigen Verzeichnis bist (`pwd`)
 - Überprüfe die Schreibweise des Datei- oder Ordnernamens
 - Liste alle Dateien auf, um zu sehen, was verfügbar ist (`ls` oder `dir`)
@@ -347,12 +309,6 @@ Mögliche Lösungen:
 ## VS Code Terminal-Einstellungen
 
 VS Code bietet viele Möglichkeiten, dein Terminal anzupassen:
-
-### Terminal-Typ ändern
-
-1. Öffne die VS Code-Einstellungen (`Strg + ,` oder `Cmd + ,`)
-2. Suche nach "terminal.integrated.defaultProfile"
-3. Wähle dein Betriebssystem und dann deinen bevorzugten Terminal-Typ
 
 ### Mehrere Terminal-Fenster
 
@@ -363,7 +319,7 @@ Du kannst mehrere Terminal-Fenster nebeneinander öffnen:
 
 ### Terminal-Schriftgröße ändern
 
-1. `Strg + +` / `Strg + -` (oder `Cmd + +` / `Cmd + -` auf macOS)
+1. `Strg + +` / `Strg + -` (oder `Cmd + +` / `Cmd + -` auf macOS) _gilt für ganz VSCode_
 2. Oder über die Einstellungen: Suche nach "terminal.integrated.fontSize"
 
 ## Übungen zum Ausprobieren
@@ -388,37 +344,16 @@ ls  # oder dir (Windows CMD)
 cd ..
 ```
 
-### Übung 2: UV-Projekt erstellen
-
-1. Erstelle einen neuen Ordner für ein UV-Projekt
-2. Initialisiere ein neues UV-Projekt
-3. Füge die Pakete "pandas" und "matplotlib" hinzu
-4. Erstelle eine Python-Datei namens "plot.py"
-5. Führe die Datei mit UV aus
-
-```bash
-# Lösung
-mkdir uv-übung
-cd uv-übung
-uv init
-uv add pandas matplotlib
-touch plot.py  # oder New-Item -ItemType File -Name plot.py (Windows PowerShell)
-# Füge Code zu plot.py hinzu
-uv run plot.py
-```
-
 ## Zusammenfassung
 
 Das Terminal ist ein mächtiges Werkzeug, das dir hilft, effizienter mit deinem Computer zu arbeiten. Mit den grundlegenden Befehlen, die du in diesem Leitfaden gelernt hast, bist du gut gerüstet, um mit dem UV-Paketmanager in VS Code zu arbeiten.
 
 Die wichtigsten Punkte:
-- Das Terminal öffnest du in VS Code mit `Strg + Umschalt + ö` (Windows/Linux) oder `Cmd + Umschalt + ö` (macOS)
-- Mit `cd`, `ls`/`dir` und `mkdir` navigierst du durch das Dateisystem
-- UV-Befehle werden direkt im Terminal ausgeführt: `uv init`, `uv add`, `uv sync`, `uv run`
+
+- Das Terminal öffnest du in VS Code mit `Strg + ö` (Windows/Linux) oder `Cmd + ö` (macOS)
+- Mit `cd`, `ls`/`dir` navigierst du durch das Dateisystem
 - Tab-Vervollständigung und Befehlsverlauf helfen dir, effizienter zu arbeiten
 
 Je mehr du das Terminal benutzt, desto vertrauter wirst du damit. Scheue dich nicht, es auszuprobieren – du kannst immer `Strg + C` drücken, um einen Befehl abzubrechen, wenn etwas nicht wie erwartet funktioniert.
 
 Falls du weitere Fragen hast oder auf Probleme stößt, melde dich beim Mentoring-Team von StackFuel.
-
-Viel Erfolg bei deinen Python-Projekten!
