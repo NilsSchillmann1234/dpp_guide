@@ -1,10 +1,3 @@
-<!--
-Erstelle einen Leitfaden für Git und GitHub, der die wichtigsten Befehle und Konzepte erklärt. Der Leitfaden richtet sich an Teilnehmer eines Portfolio-Projekt Kurses meines Unternehmens, in dem die Teilnehmer nach einer Reihe anderer Trainings aus deb Bereichen Data Analytics und Data Science nun ihre eigenen Projekte mit VSCode, UV (Packetmanager), Jupyter und Git umsetzten sollen. Die Teilnehmer haben bereits Erfahrung mit Python und Jupyter Notebooks durch vorangegangene Kurse. Zudem haben sie durch weitere Leitfäden bereits gelernt mit Visual Studio Code und dem Python Paketmanager UV zu arbeiten. Der Git Leitfaden soll die Teilnehmer dabei unterstützen, ihre Projekte effektiv zu versionieren und mit anderen zu teilen.
-Der Leitfaden sollte die wichtigsten Konzepte und Befehle abdecken, die für den Einstieg in Git erforderlich sind. Er sollte auch praktische Beispiele und Tipps enthalten, um den Teilnehmern zu helfen, Git in ihren Projekten zu verwenden. Der Leitfaden sollte klar strukturiert und leicht verständlich sein, damit die Teilnehmer ihn als Nachschlagewerk nutzen können.
-Der Fokus sollte hierbei auf den grundlegenden Konzepten und nicht so stark auf den einzelnen Befehlen liegen da die Teilnehmer git überwiegend über die grafische Oberfläche von Visual Studio Code verwenden werden.
-Ich habe dir als vergleich den Leitfaden für den Python Paketmanager UV gegeben, der die wichtigsten Konzepte und Befehle erklärt. Orientieren dich an diesem Leitfaden und achte darauf, dass der Git Leitfaden in einem ähnlichen Stil und Umfang verfasst ist.
--->
-
 # Git und GitHub Leitfaden für Portfolio-Projekte
 
 In diesem Leitfaden zeige ich dir, wie du Git und GitHub für dein Portfolio-Projekt nutzen kannst. Git ist ein unverzichtbares Werkzeug für die Versionskontrolle deiner Code-Dateien, während GitHub dir ermöglicht, dein Projekt zu veröffentlichen und mit anderen zu teilen.
@@ -41,9 +34,19 @@ Git ist ein Kommandozeilenprogramm, das du auf deinem Computer installieren muss
 
 ### Windows
 
+Du kannst Git unter Windows mit dem eingbauten Paketmanager `winget` installieren:
+
+Öffne dazu die PowerShell und führe den folgenden Befehl aus:
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+
+Sollte das nicht funktionieren kannst du Git auch manuell installieren:
+
 1. Besuche die offizielle Git-Website: [https://git-scm.com/download/win](https://git-scm.com/download/win)
 2. Lade den Installer herunter und führe ihn aus.
-3. Die Standardeinstellungen sind in der Regel in Ordnung. Achte darauf, dass "Git Bash" und "Git GUI" ausgewählt sind.
+3. Die Standardeinstellungen sind in der Regel in Ordnung. Achte darauf, dass "Git Bash" und "Git GUI" ausgewählt sind und das git zum PATH hinzugefügt wird.
 
 ### macOS
 
