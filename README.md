@@ -11,6 +11,6 @@ Hier findest du praktische Leitfäden für euer Protfolio Projekt. Gib uns gerne
 ## Projekt
 - [Projekt Leitfaden](./project_guide.md)
 - [Beispieldatensätze](./data_sets.md)
-- [Referenzprojekt zur Inspiration](https://github.com/jzatstackfuel/DPP-Referenzprojekt)
+- [Referenzprojekt zur Inspiration](https://github.com/StackFuel-Mentoring/DPP-Referenzprojekt)
 
 
