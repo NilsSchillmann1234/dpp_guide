@@ -130,7 +130,7 @@ Thumbs.db
 - **Datengröße**: Git ist nicht für große Dateien optimiert. Dateien über 100MB sollten normalerweise nicht ins Repository.
 - **Datenschutz**: Sensible oder private Daten sollten nie in ein öffentliches Repository.
 
-Empfehlung: Erstelle Skripte, die deine Daten herunterladen oder generieren, anstatt die Rohdaten selbst zu speichern.
+Empfehlung: Erstelle Skripte, die deine Daten herunterladen oder generieren, anstatt die Rohdaten selbst zu speichern. Ein Beispiel für ein solches Script findest du in unserem [Referenzprojekt](https://github.com/stackfuel/DPP-Referenzprojekt).
 
 ## Pakete und Abhängigkeiten mit UV verwalten
 
@@ -253,13 +253,14 @@ Diese Einrichtung stellt sicher, dass Ausgaben automatisch vor jedem Commit entf
 ### Git-Workflow für Teams
 
 Wenn du in einer Gruppe arbeitest, ist ein strukturierter Git-Workflow besonders wichtig. Hier ist ein einfacher, aber effektiver Workflow:
+> **Hinweis:** Alle folgenden Schritte lassen sich auch direkt in VSCode über das Source Control Panel durchführen, siehe dazu [hier](https://code.visualstudio.com/docs/sourcecontrol/overview). Zur einfacheren Dokumentation verwenden wir hier die Terminal-Befehle für Git.
 
 1. **Repository einrichten**:
    - Ein Teammitglied erstellt das Repository auf GitHub
-   - Dieses Mitglied fügt alle anderen als Collaborators hinzu
+   - Dieses Mitglied fügt alle anderen als Collaborators hinzu (unter Settings > Collaborators)
    - Jeder klont das Repository: `git clone [repository-url]`
 
-2. **Feature-Branch-Workflow**:
+2. **Feature-Branch-Workflow (Optional)**:
    - Erstelle für jedes Feature oder jede Aufgabe einen neuen Branch: `git checkout -b feature/datenbereinigung`
    - Arbeite an deinen Änderungen und committe regelmäßig: `git commit -m "Beschreibender Commit-Text"`
    - Synchronisiere deinen Branch mit dem Remote-Repository: `git push origin feature/datenbereinigung`
@@ -270,40 +271,36 @@ Wenn du in einer Gruppe arbeitest, ist ein strukturierter Git-Workflow besonders
    - Nach der Genehmigung wird der Branch in den Hauptbranch (main/master) gemergt
    - Alle Teammitglieder aktualisieren ihre lokalen Repositories: `git pull origin main`
 
+> Solltest du alleine Arbeiten oder nur ein kleines Team haben, kannst du auch direkt im `main` Branch arbeiten. In diesem Fall ist es wichtig, dass du regelmäßig deine Änderungen committest und pushst.
+
 ### Umgebungen synchronisieren
 
 Um sicherzustellen, dass alle Teammitglieder mit denselben Paketversionen arbeiten:
 
-1. **Zentrale requirements.txt pflegen**:
-   - Wenn ein Teammitglied ein neues Paket installiert: `uv add paketname`
-   - Requirements pushen: `git add requirements.txt && git commit -m "Add new dependency" && git push`
-   - Andere Teammitglieder synchronisieren ihre Umgebung: `uv pip install -r requirements.txt`
-
-2. **Alternativ: setup.py verwenden**:
-   - Erstelle eine `setup.py`-Datei für dein Projekt
-   - Definiere Abhängigkeiten dort
-   - Jedes Teammitglied installiert das Projekt im Entwicklungsmodus: `pip install -e .`
+- Wenn ein Teammitglied ein neues Paket installiert: `uv add paketname`
+- `pyproject.toml` pushen: `git add pyproject.toml && git commit -m "Add new dependency" && git push`
+- Andere Teammitglieder synchronisieren ihre Umgebung: `uv sync`
 
 ### Zusammenarbeit an Notebooks
 
 Bei der gemeinsamen Arbeit an Jupyter Notebooks gibt es einige Herausforderungen:
 
-1. **Notebook-Konflikte vermeiden**:
+- **Notebook-Konflikte vermeiden**:
    - Teile die Arbeit klar auf (z.B. verschiedene Notebooks für verschiedene Analysen)
    - Vermeide es, gleichzeitig am selben Notebook zu arbeiten
 
-2. **Diff-Ansicht verbessern**:
-   - Verwende `nbdime` für bessere Diff- und Merge-Operationen für Notebooks
-   - Installation: `uv add nbdime`
-   - Konfiguration: `nbdime config-git --enable`
-
-3. **Dokumentation und Kommentare**:
+- **Dokumentation und Kommentare**:
    - Verwende Markdown-Zellen ausgiebig, um deinen Code zu dokumentieren
    - Füge Kommentare hinzu, die anderen Teammitgliedern helfen, deinen Code zu verstehen
 
+- **Vermeide zu große Notebooks**:
+   - Halte Notebooks klein und fokussiert
+   - Teile große Analysen in mehrere Notebooks auf
+   - Verwende Python-Skripte für wiederverwendbaren Code und importiere diese in Notebooks
+
 ## Best Practices für Data Science Projekte
 
-### Code-Qualität sicherstellen
+### Code-Qualität sicherstellen (Optional)
 
 Verwende Linting-Tools, um deinen Code sauber und konsistent zu halten:
 
@@ -318,7 +315,7 @@ Diese Tools kannst du in VSCode einrichten, sodass sie automatisch beim Speicher
 
 ### Reproduzierbarkeit gewährleisten
 
-1. **Random Seeds setzen**:
+**Random Seeds setzen**:
    ```python
    import numpy as np
    import random
@@ -331,73 +328,33 @@ Diese Tools kannst du in VSCode einrichten, sodass sie automatisch beim Speicher
    torch.manual_seed(SEED)
    ```
 
-2. **Datenpipelines dokumentieren**:
+**Datenpipelines dokumentieren**:
    - Speichere Zwischen- und Endversionen deiner Daten
    - Dokumentiere jeden Transformationsschritt ausführlich
+   - Verwende Download Scipte für die Rohdaten und speichere die Daten in `data/raw/`
+   - Verwende Scripte zum verarbeiten der Daten und speichere die verarbeiteten Daten in `data/processed/`
+   - auf diese weise können andere deine Datenpipelines nachvollziehen und reproduzieren auch wenn der `data` Ordner nicht im Repository ist.
 
-3. **Modellparameter speichern**:
-   - Speichere Hyperparameter und Modellkonfigurationen
-   - Halte Trainings- und Evaluierungsprozesse in Logdateien fest
+
 
 ### Dokumentation pflegen
 
 Eine gute README.md Datei ist entscheidend. Sie sollte enthalten:
 
-1. **Projekttitel und -beschreibung**
-2. **Installation und Setup**:
+- **Projekttitel und -beschreibung**
+- **Installation und Setup**:
    ```
    # Installation
    git clone https://github.com/username/projektname.git
    cd projektname
    uv init
-   source .venv/bin/activate  # oder .venv\Scripts\activate auf Windows
-   uv pip install -r requirements.txt
    ```
-3. **Nutzung**: Beispiele, wie das Projekt verwendet wird
-4. **Datenquellen**: Woher stammen die Daten, wie kann man sie erhalten
-5. **Projektstruktur**: Kurze Erklärung der Ordnerstruktur
-6. **Teammitglieder**: Bei Gruppenprojekten
+- **Nutzung**: Beispiele, wie das Projekt verwendet wird
+- **Datenquellen**: Woher stammen die Daten, wie kann man sie erhalten
+- **Projektstruktur**: Kurze Erklärung der Ordnerstruktur
+- **Teammitglieder**: Bei Gruppenprojekten
 
-## Häufige Herausforderungen und Lösungen
-
-### Große Dateien verwalten
-
-Git ist nicht für große Dateien optimiert. Alternativen:
-
-1. **Git LFS (Large File Storage)**:
-   - Installation: `git lfs install`
-   - Konfiguration: `git lfs track "*.csv" "*.pkl" "*.h5"`
-
-2. **DVC (Data Version Control)**:
-   - Installation: `uv add dvc`
-   - Initialisierung: `dvc init`
-   - Daten hinzufügen: `dvc add data/raw/large_dataset.csv`
-
-3. **Cloud-Speicher**:
-   - Speichere große Dateien in Google Drive, AWS S3, etc.
-   - Erstelle Skripte zum automatischen Herunterladen
-
-### Datenqualität sicherstellen
-
-1. **Konsistenzprüfungen**:
-   - Verwende `pandas-profiling` oder `great_expectations` für Datenqualitätsprüfungen
-   - Installation: `uv add pandas-profiling great_expectations`
-
-2. **Datenvalidierung**:
-   - Definiere Schemas für deine Daten mit `pydantic` oder ähnlichen Bibliotheken
-   - Installation: `uv add pydantic`
-
-### Performance optimieren
-
-1. **Große Datasets verarbeiten**:
-   - Verwende `dask` für Out-of-Memory-Berechnungen
-   - Chunke deine Daten in kleinere Teile
-
-2. **Rechenintensive Operationen**:
-   - Nutze Multiprocessing für parallele Verarbeitung
-   - Verwende numba oder Cython für rechenintensive Operationen
-
-## Nächste Schritte
+## Nächste Schritte (Optional für fortgeschrittene)
 
 Nachdem du dein Projekt aufgesetzt hast, stehen dir viele Wege offen:
 
