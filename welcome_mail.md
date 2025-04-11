@@ -1,7 +1,5 @@
 # Herzlich willkommen zum Portfolio-Training
 
-Hallo und willkommen im Team!
-
 Herzlichen Glückwunsch zum erfolgreichen Abschluss der bisherigen Kurse und zum Erhalt deines Zertifikats! Du hast bereits beeindruckende Fortschritte gemacht, und wir freuen uns, dich nun zum abschließenden Portfolio-Training begrüßen zu dürfen.
 
 ## Über das Portfolio-Training
@@ -21,7 +19,7 @@ Um optimal von diesem Training zu profitieren, überleg dir bitte schon im Vorfe
 
 Das Lehrmaterial für diesen Kurs findest du unter folgendem Link:
 
-[**DPP Projekt Leitfäden**](https://github.com/StackFuel-Mentoring/dpp_guide).
+[**DPP Projekt Leitfäden**](https://github.com/StackFuel-Mentoring/dpp_guide)
 
 Dieses Repository enthält umfassende Leitfäden zur Vorbereitung und Durchführung des Trainings. Wir empfehlen dir dringend, diese Materialien vorab durchzulesen, um dich mit den Konzepten vertraut zu machen.
 
