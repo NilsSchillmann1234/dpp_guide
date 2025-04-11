@@ -271,7 +271,7 @@ Wenn du in einer Gruppe arbeitest, ist ein strukturierter Git-Workflow besonders
    - Nach der Genehmigung wird der Branch in den Hauptbranch (main/master) gemergt
    - Alle Teammitglieder aktualisieren ihre lokalen Repositories: `git pull origin main`
 
-> Solltest du alleine Arbeiten oder nur ein kleines Team haben, kannst du auch direkt im `main` Branch arbeiten. In diesem Fall ist es wichtig, dass du regelmäßig deine Änderungen committest und pushst.
+> Solltest du alleine Arbeiten oder nur ein kleines Team haben, kannst du auch direkt im `main` Branch arbeiten. In diesem Fall ist es wichtig, dass du regelmäßig deine Änderungen committest und pushst um Merge-Konflikte zu vermeiden.
 
 ### Umgebungen synchronisieren
 

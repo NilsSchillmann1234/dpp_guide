@@ -300,11 +300,6 @@ In VS Code:
 1. Rechtsklick auf die Datei im Source-Control-Tab.
 2. Wähle "Discard Changes".
 
-Über die Kommandozeile:
-
-```bash
-git checkout -- dateiname
-```
 
 ### Zurück zu einem früheren Commit
 
@@ -318,7 +313,8 @@ In VS Code:
 Über die Kommandozeile:
 
 ```bash
-git checkout commit-hash
+git log  # Zeigt die Commit-Historie an
+git checkout commit-hash  # Ersetze commit-hash durch die ID des Commits
 ```
 
 ## GitHub als Portfolio
