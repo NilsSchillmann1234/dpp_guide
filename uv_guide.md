@@ -130,11 +130,8 @@ Fühl dich frei, die Datei zu bearbeiten und den Projektnamen sowie die Beschrei
 
 Darüber hinaus hat UV wahrscheinlich die Dateien `README.md`, `hello.py`, `.gitignore` sowie ein Git-Repository im Ordner `.git` angelegt. Falls du die letzten beiden nicht finden kannst, musst du vermutlich in deinem Dateiexplorer versteckte Elemente einblenden. Die `README.md` dient dazu, dein Projekt zu beschreiben und zu dokumentieren. Diese Datei wird unter GitHub standardmäßig auf der Startseite deines Projekts angezeigt. Die `hello.py`-Datei kannst du zum Testen deines Setups verwenden. Falls du mit dem `.git`-Ordner oder der `.gitignore`-Datei nichts anfangen kannst, schau dir unseren [Git-Leitfaden](git_guide.md) an.
 
-Der `.venv`-Ordner enthält deine virtuelle Umgebung. Da dieser Ordner sehr groß werden kann und nicht ins Git-Repository gehört, sollten wir ihn in der `.gitignore`-Datei ausschließen. Füge dazu folgende Zeile in die `.gitignore` ein:
 
-```
-.venv/
-```
+Zudem hat UV einen Ordner `.venv` angelegt. Dies ist das virtuelle Environment, in dem alle Pakete für dein Projekt installiert werden. UV wird versuchen diesen Ordner immer mit der `pyproject.toml`-Datei und der `uv.lock`-Datei zu synchronisieren wenn du änderungen am Environment vornimmst. Du kanns diesen vorgang auch mit dem Befehl `uv sync` manuell anstoßen. Wir werden später noch darauf eingehen.
 
 
 ## Pakete installieren `uv add`
@@ -169,7 +166,6 @@ dependencies = [
 
 In der `pyproject.toml` finden wir die Pakete, welche wir explizit durch `uv add` als Abhängigkeit für unser Projekt definiert haben. Damit ist klar, dass unser Projekt auf diesen Bibliotheken aufbaut und jeder, der unser Projekt selbst ausführen möchte, diese Pakete installiert haben muss. Allerdings haben diese Pakete selbst ebenfalls Abhängigkeiten von anderen Paketen, die wir nicht explizit angegeben haben. So sind die Pakete `pandas` und `matplotlib` beispielsweise von `numpy` abhängig. UV installiert diese zusätzlichen Abhängigkeiten automatisch für uns mit und dokumentiert alle installierten Pakete in der `uv.lock`-Datei. UV hat also `numpy` ebenfalls installiert, und wir können dieses Paket in unseren Notebooks verwenden. Allerdings sollten wir, falls wir `numpy` explizit in unserem Quellcode verwenden, dieses auch in unserer `pyproject.toml`-Datei auflisten bzw. mit `uv add` hinzufügen und uns nicht darauf verlassen, dass es durch `pandas` oder `matplotlib` installiert wird.
 
-UV hat spätestens jetzt einen Ordner `.venv` in unserem Projekt angelegt und dort die entsprechenden Pakete installiert. Falls du diesen Ordner nicht siehst, musst du in den Einstellungen deines Dateiexplorers "versteckte" oder "ausgeblendete" Elemente anzeigen lassen. Das ist nun unser virtuelles Environment, das speziell für unser Projekt angelegt wurde.
 
 Du kannst nun in VSCode dein erstes Notebook, z. B. `test.ipynb`, anlegen. Nachdem du diese Datei geöffnet hast, solltest du als Erstes den Kernel oben rechts in der Ecke definieren. Hier wähle einfach das `.venv` aus, welches UV gerade für uns angelegt hat. Mehr dazu in unserem [Projekt Guide](project_guide.md).
 
