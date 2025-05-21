@@ -82,7 +82,26 @@ uv init
 - `--python`: Legt die Python-Version fest, z. B. `uv init --python=3.12`
 - `--name`: Setzt den Projektnamen, z. B. `uv init --name="mein-data-projekt"`
 
-UV hat jetzt ein neues Projekt in unserem Ordner angelegt und einige Dateien und Ordner erstellt.
+UV hat jetzt ein neues Projekt in unserem Ordner angelegt und dabei einige Dateien und Ordner erstellt.
+
+Zunächst wurden die Dateien `.git` `.gitignore`, `.python-version`, `main.py`, `pyproject.toml`, und `README.md` angelegt. Falls du die Ordner mit einem vorangestellen Punkt nicht sehen kannst, musst du in deinem Dateiexplorer versteckte Elemente einblenden. Das ist unter Windows und macOS unterschiedlich. In der Regel findest du diese Option im Menü "Ansicht" oder "Darstellung".
+
+Ich gehe gleich auf die einzelnen Dateien ein aber noch ist die Arbeit nicht ganz erledigt. UV hat noch keinen virtuelles Environment angelegt da wir es bislang noch nicht benutzt haben. 
+
+Lass uns zunächst versuchen die von UV erstellte `main.py` auszuführen. Dazu führe fogenden Befehl aus:
+
+```bash
+uv run main.py
+```
+
+Wenn alles geklappt hat sollte eine Ausgabe wie diese erscheinen:
+
+```
+Hello from mein-data-projekt!
+```
+
+Zusätzlich hat UV einen Ordner `.venv` sowie die Datei `uv.lock` angelegt. Lass uns nun die wichtigsten Dateien und Ordner durchgehen.
+
 
 **`pyproject.toml`**: Dies ist deine Projekt-Konfigurationsdatei. Sie sieht etwa so aus:
 
@@ -96,7 +115,10 @@ requires-python = ">=3.12"
 dependencies = []
 ```
 
-In dieser Datei werden wichtige Informationen zu unserem Projekt abgelegt. Programme wie UV nutzen diese Datei, um Einstellungen für das Projekt zu verwalten. Wenn du dich dafür interessierst, wie diese Datei aufgebaut ist und funktioniert, kannst du gerne einen Blick in den offiziellen [Python Packaging Guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) werfen. Für den Anfang musst du aber nur wissen, dass UV hier einige Metadaten für unser Projekt angelegt hat und unter dem Punkt `dependencies` die Namen der benötigten Pakete für unser Projekt hinterlegt.
+In dieser Datei werden wichtige Informationen zu unserem Projekt abgelegt. Programme wie UV nutzen diese Datei, um Einstellungen für das Projekt zu verwalten. Wenn du dich dafür interessierst, wie diese Datei aufgebaut ist und funktioniert, kannst du gerne einen Blick in den offiziellen [Python Packaging Guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) werfen. Für den Anfang musst du aber nur wissen, dass UV hier einige Metadaten für unser Projekt angelegt hat und unter dem Punkt `dependencies` die Namen der benötigten Pakete für unser Projekt hinterlegen wird.
+
+Fühl dich frei, die Datei zu bearbeiten und den Projektnamen sowie die Beschreibung zu ändern. Das ist wichtig, wenn du dein Projekt später auf GitHub veröffentlichen möchtest. Wenn du das Projekt mit anderen teilst, wird diese Datei automatisch mit dem Projekt ausgeliefert.
+
 
 **`.python-version`**: Enthält die Python-Version für dein Projekt, z. B.:
 
@@ -114,12 +136,6 @@ Der `.venv`-Ordner enthält deine virtuelle Umgebung. Da dieser Ordner sehr gro�
 .venv/
 ```
 
-Diese Dateien sollten ins Git-Repository aufgenommen werden:
-
-```bash
-git add pyproject.toml .python-version uv.lock README.md .gitignore
-git commit -m "Initial project setup"
-```
 
 ## Pakete installieren `uv add`
 
